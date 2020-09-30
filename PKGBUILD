@@ -5,12 +5,12 @@
 
 # Maintainer: Your Name <youremail@domain.com>
 pkgname=geoclue_fake-local
-pkgver=r4.af6138f
+pkgver=r6.0d7f9aa
 pkgrel=1
 pkgdesc="Geoclue Service Faker (installed from local repository)"
 arch=('i686' 'x86_64')
 url=""
-license=('unknown')
+license=('GPL3')
 groups=()
 depends=('dbus')
 #makedepends=('cargo' 'git')
@@ -26,22 +26,22 @@ noextract=()
 md5sums=('SKIP')
 
 pkgver() {
-    cd "$srcdir/${pkgname}"
+    cd "$pkgname"
 	printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
 build() {
-	cd "$srcdir/${pkgname}"
+	cd "$pkgname"
 	cargo build --release
 }
 
 clean() {
-    cd "$srcdir/${pkgname}"
+    cd "$pkgname"
 	cargo clean
 }
 
 package() {
-	cd "$srcdir/${pkgname}"
+	cd "$pkgname"
     install -Dm755 "target/release/geoclue_fake" "$pkgdir/usr/bin/geoclue_fake"
 
     install -Dm644 "geoclue_fake.service" "$pkgdir/usr/lib/systemd/system/geoclue_fake.service"
